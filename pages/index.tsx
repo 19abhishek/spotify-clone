@@ -18,6 +18,8 @@ export default function Home() {
     return <Loader />;
   }
 
+  console.log(session);
+
   return (
     <div className="">
       <Head>
