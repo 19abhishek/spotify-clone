@@ -88,4 +88,5 @@ export default NextAuth({
   pages: {
     signIn: "/auth/signin",
   },
+  secret: "793dd3297ff0ca2207430d234fc0bbef",
 });
