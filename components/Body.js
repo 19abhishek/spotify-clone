@@ -17,6 +17,7 @@ function Body({ spotifyApi, chooseTrack }) {
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
 
+  //Genres Code
   useEffect(() => {
     spotifyApi
       .getAvailableGenreSeeds()
@@ -27,10 +28,10 @@ function Body({ spotifyApi, chooseTrack }) {
     const fun = async () => {
       const res = await spotifyApi.getAvailableGenreSeeds();
       const data = await res;
-      console.log(data);
+      console.log(data.body.genres);
+      setGenres(data.body.genres);
     };
     fun();
-    //console.log();
   }, []);
 
   //Search ...
@@ -78,6 +79,10 @@ function Body({ spotifyApi, chooseTrack }) {
     });
   }, [accessToken]);
 
+  const handleGenreClick = (val) => {
+    setSearch(genres ? genres[genres.findIndex((x) => x === val)] : "");
+  };
+
   console.log(searchResults);
   console.log(newReleases);
   console.log(genres);
@@ -111,15 +116,39 @@ function Body({ spotifyApi, chooseTrack }) {
         <div className="hidden xl:inline max-w-[270px]">
           <h2 className="text-white font-bold mb-3">Genres</h2>
           <div className="flex gap-x-2 gap-y-2.5 flex-wrap mb-3">
-            <div className="genre">Classic</div>
-            <div className="genre">House</div>
-            <div className="genre">Minimal</div>
-            <div className="genre">Hip-hop</div>
-            <div className="genre">Electronic</div>
-            <div className="genre">Chillout</div>
-            <div className="genre">Blues</div>
-            <div className="genre">Country</div>
-            <div className="genre">Techno</div>
+            <div className="genre" onClick={() => handleGenreClick("acoustic")}>
+              Acoustic
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("anime")}>
+              Anime
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("chill")}>
+              Chill
+            </div>
+            <div
+              className="genre"
+              onClick={() => handleGenreClick("hard-rock")}
+            >
+              Hard-Rock
+            </div>
+            <div
+              className="genre"
+              onClick={() => handleGenreClick("electronic")}
+            >
+              Electronic
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("metal")}>
+              Metal
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("piano")}>
+              Piano
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("country")}>
+              Country
+            </div>
+            <div className="genre" onClick={() => handleGenreClick("techno")}>
+              Techno
+            </div>
           </div>
           <button className="text-[#CECECE] bg-[#1A1A1A] text-[13px] py-3.5 px-4 rounded-2xl w-full font-bold bg-opacity-80 hover:bg-opacity-100 transition ease-out">
             All Genres
