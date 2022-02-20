@@ -10,11 +10,28 @@ function Body({ spotifyApi, chooseTrack }) {
   const { accessToken } = session;
   const [searchResults, setSearchResults] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
+  const [genres, setGenres] = useState([]);
 
   useEffect(() => {
     if (!accessToken) return;
     spotifyApi.setAccessToken(accessToken);
   }, [accessToken]);
+
+  useEffect(() => {
+    spotifyApi
+      .getAvailableGenreSeeds()
+      .then((res) => res.json())
+      .then((data) => setGenres(data))
+      .catch((err) => new Error(err));
+
+    const fun = async () => {
+      const res = await spotifyApi.getAvailableGenreSeeds();
+      const data = await res;
+      console.log(data);
+    };
+    fun();
+    //console.log();
+  }, []);
 
   //Search ...
   useEffect(() => {
@@ -63,6 +80,7 @@ function Body({ spotifyApi, chooseTrack }) {
 
   console.log(searchResults);
   console.log(newReleases);
+  console.log(genres);
 
   return (
     <section className="bg-black ml-24 py-4 space-y-8 md:max-w-6xl flex-grow md:mr-2.5">
